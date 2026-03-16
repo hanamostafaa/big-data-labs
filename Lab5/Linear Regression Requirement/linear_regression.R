@@ -100,7 +100,7 @@ plot(model, 1) # plot the diagnostic graphs
 
 #=================================Part(3)==================================================
 #(Q7) Import the dataset LungCapData.tsv. What are the variables in this dataset?
-lung <- read.delim("D:/4th/2nd/Big Data/big-data-labs/Lab5/Linear Regression Requirement/LungCapData.tsv")
+lung <- read.delim("LungCapData.tsv")
 names(lung)
 # (ANS7) "LungCap"   "Age"       "Height"    "Smoke"     "Gender"    "Caesarean"
 
