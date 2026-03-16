@@ -41,8 +41,10 @@ cor.mat # Note: The general rule is not to include variables in your model that 
         # corr 0: independent, corr 1: highly correlated, corr -1: highly correlated in inverse direction
 
 #(Q1) Write the variable pairs that are not correlated at all to each other.
+# (Ans1) <price,income> , <price,age>
 
 #(Q2) Are there any highly correlated variables in this dataset?
+# (Ans2) no , there are not
 
 # [2] Test a model with 3 variables Price, Income and Age
 mylogit <- glm(MYDEPV ~ Income + Age + as.factor(Price),
@@ -69,7 +71,11 @@ summary(mylogit)
     # as.factor(Price)20, as.factor(Price)30
 
 #(Q3): How many categories are there for the Price variable? 
+# (Ans3)  3 categories 10, 20, 30
+
 #(Q4): Why is it divided into two entries only in the model?
+# (Ans4) it has 3 distinct values so we add 2 (k-1) variables 
+# Thus only two variables appear (Price20 and Price30) while Price10 is the default category.
 
 	# Review the "Estimate" column. For every one unit change in Income (while other variables are constants), 
 	# the log odd ratio of Purchase (not the probability) increases by 0.12876 (the coefficients)
@@ -90,8 +96,10 @@ aucObj = performance(predObj, measure="auc")  # auc object
 auc = aucObj@y.values[[1]]
 auc   # the auc score: tells you how well the model predicts.
 #(Q5.1) Write the value of this expression (just the number)
+# 0.915272
 
 #(Q5.2) What is the maximum value of AUC (ideal case)?
+# 1
 
 # plot the roc curve
 plot(rocObj, main = paste("Area under the curve:", auc))
@@ -99,7 +107,8 @@ plot(rocObj, main = paste("Area under the curve:", auc))
 #(Q6) What does each point in the ROC graph represent? 
 #In other words, what is the value that changes and drives TPR and FPR to change too 
 #from one point to another in the graph?
-  
+# each point shows the FP and TP rate at a different classification threshold 
+
 # [4] Predictions
 #Prediction - 1
 Price <- c(10,20,30)
@@ -110,6 +119,7 @@ newdata1
 newdata1$PurchaseP <- predict (mylogit,newdata=newdata1,type="response")
 newdata1  
 #(Q7) How is the predicted probability affected by changing only price holding all other variables constant?
+# for higher prices the probability of purchasing is less 
 
 #Prediction - 2 
 newdata2 <- data.frame(Age=seq(min(Mydata$Age),max(Mydata$Age),2),
@@ -120,6 +130,7 @@ newdata2
 cbind(newdata2$Age,newdata2$PurchaseP)
 plot(newdata2$Age,newdata2$PurchaseP)
 #(Q8) How is the predicted probability affected by changing only age holding all other variables constant?
+# for older ages the probability of purchasing is slightly increasing  
 
 #Prediction - 3
 newdata3 <- data.frame(Income= seq(20,90,10),Age=mean(Mydata$Age),Price=30)
@@ -127,6 +138,7 @@ newdata3$PurchaseP<-predict(mylogit,newdata=newdata3,type="response")
 cbind(newdata3$Income,newdata3$PurchaseP)
 plot(newdata3$Income,newdata3$PurchaseP)
 #(Q9) How is the predicted probability affected by changing only income holding all other variables constant?
+# it increases with income increasing with slow changes at start and end , and faster changes in the middle (follow shape like sigmoid)
 
 #Prediction 4
 newdata4 <- data.frame (Age= round(runif(10,min(Mydata$Age),max(Mydata$Age))), 
