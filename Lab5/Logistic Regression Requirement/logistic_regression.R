@@ -119,7 +119,7 @@ newdata1
 newdata1$PurchaseP <- predict (mylogit,newdata=newdata1,type="response")
 newdata1  
 #(Q7) How is the predicted probability affected by changing only price holding all other variables constant?
-# for higher prices the probability of purchasing is less 
+# When Price increases, the probability of purchasing decreases.
 
 #Prediction - 2 
 newdata2 <- data.frame(Age=seq(min(Mydata$Age),max(Mydata$Age),2),
@@ -130,7 +130,7 @@ newdata2
 cbind(newdata2$Age,newdata2$PurchaseP)
 plot(newdata2$Age,newdata2$PurchaseP)
 #(Q8) How is the predicted probability affected by changing only age holding all other variables constant?
-# for older ages the probability of purchasing is slightly increasing  
+# As Age increases, the probability of purchasing increases slightly.
 
 #Prediction - 3
 newdata3 <- data.frame(Income= seq(20,90,10),Age=mean(Mydata$Age),Price=30)
@@ -138,7 +138,7 @@ newdata3$PurchaseP<-predict(mylogit,newdata=newdata3,type="response")
 cbind(newdata3$Income,newdata3$PurchaseP)
 plot(newdata3$Income,newdata3$PurchaseP)
 #(Q9) How is the predicted probability affected by changing only income holding all other variables constant?
-# it increases with income increasing with slow changes at start and end , and faster changes in the middle (follow shape like sigmoid)
+# It increases as income increases, with slow changes at the beginning and end, and faster changes in the middle, following a sigmoid-like shape.
 
 #Prediction 4
 newdata4 <- data.frame (Age= round(runif(10,min(Mydata$Age),max(Mydata$Age))), 

@@ -6,7 +6,7 @@ x <- runif(100, 0, 10)     # 100 draws between 0 & 10
 
 #(Q1) Try changing the value of standard deviation (sd) in the next command 
 #How do the data points change for different values of standard deviation?
-y <- 5 + 6*x + rnorm(100, sd = 4)  # default values for rnorm (mean = 0 and sigma = 1)
+y <- 5 + 6*x + rnorm(100, sd = 10)  # default values for rnorm (mean = 0 and sigma = 1)
 
 #(ANS1) having larger std makes data points more scattered 
 
@@ -61,7 +61,7 @@ plot(model1, 1) # plot one diagnostic graphs
 x1 <- runif(100) 
 # introduce a slight nonlinearity
 #(A)
-y1 = 5 + 6*x1 + 0.1*x1*x1 + rnorm(100)
+y1 = 5 + 6*x1 + 20.1*x1*x1 + rnorm(100)
 plot(x1,y1)
 model <- lm(y1 ~ x1)
 
@@ -77,7 +77,7 @@ summary(model)
 
 x1 <- runif(100)
 #(B)
-ytrue = 5 + 6*x1 + 0.1*x1*x1 + rnorm(100)  # same equation of y1 but on xtest to get true y for xtest
+ytrue = 5 + 6*x1 + 20.1*x1*x1 + rnorm(100)  # same equation of y1 but on xtest to get true y for xtest
 
 ypred <- predict(model, data.frame(x1))
 
@@ -135,7 +135,7 @@ lung_model <- lm(LungCap ~ ., data = lung)
 summary(lung_model)
 
 #(Q15) What is the R-squared value here ? What does R-squared indicate?
-#(ANS15) it is 0.85 it shows that model performance is model, data not taht scattered ? 
+#(ANS15) it is 0.85 it shows that model performance is good, data not really scattered
 
 #(Q16) Show the coefficients of the linear model. Do they make sense?
 #If not, which variables don't make sense? What should you do?
@@ -145,6 +145,7 @@ summary(lung_model)
 #  Smokeyes      -0.60956 (makes sense as smoking has a negative effect on lung capacity)
 #  Gendermale     0.38701 (makes sense since males usually have higher lung capacity)
 #  Caesareanyes  -0.21422 (does not clearly make sense since birth method may not strongly affect lung capacity)
+# we should ignore variables that does not make sense 
 
 #(Q17) Redraw a scatter plot between Age and LungCap. Display/Overlay the linear model (a line) over it.
 #Hint: Use the function abline(model, col="red").
@@ -159,6 +160,7 @@ abline(lung_model, col="red")
 lung_model2 <- lm(LungCap ~ Age + Smoke + Caesarean, data = lung)
 
 #(Q19)Repeat Q16, Q17 for the new model. What happened?
+summary(lung_model2)
 plot(lung$Age, lung$LungCap, xlab="Age", ylab="LungCap")
 abline(lung_model2, col="red")
 # a line was drawn this time as it is the continuos var ?
